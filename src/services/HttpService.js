@@ -1,31 +1,38 @@
 import axios from "axios";
+import { config } from "../config";
 
 class HttpService{
-    constructor(options={}){
-        this.client = axios.create(options);
-        this.client.interceptors.response.use(this.handleSuccessResponse, this.handleErrorResponse);
-        this.client.interceptors.request.use((config) => {
-            //console.log(config);
-            return config;
-        }, (error) => {
-            return Promise.reject(error);
+    constructor(){
+        this.httpClient = axios.create({
+            baseURL: config.API_BASE_URL
         });
     }
 
-    handleSuccessResponse(response){
-        //console.log(response);
-        return response;
-    }
+    request = (requestConfig) => 
+        this.httpClient.request(requestConfig).then(({data}) => data);
 
-    handleErrorResponse(error) {
-        return error.response;
-    }
+    attachHeaders = (headers) =>
+        Object.assign(this.httpClient.defaults.headers,headers);
+
+    removeHeaders = (headerKeys) => 
+        headerKeys.forEach(key => delete this.httpClient.defaults.headers[key]);
+
+    addRequestInterceptor = (callback) =>
+        this.httpClient.interceptors.request.use(callback);
+
+    removeRequestInterceptor = (interceptorId) =>
+        this.httpClient.interceptors.request.eject(interceptorId);
+
+    addResponseInterceptor = (successCallback, errorCallback) =>
+        this.httpClient.interceptors.response.use(successCallback,errorCallback);
+
+    removeResponseInterceptor = (interceptorId) => 
+        this.httpClient.interceptors.response.eject(interceptorId);
+
+    setUnauthorizedCallback = (callback) =>
+        (this.unauthorizedCallback = callback)
 }
 
-const options = {
-    baseURL: "http://localhost:8000"
-}
-
-const httpService = new HttpService(options);
+const httpService = new HttpService();
 
 export default httpService;

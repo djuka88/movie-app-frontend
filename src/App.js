@@ -1,30 +1,22 @@
 import './App.css';
-import { useForm } from "react-hook-form";
-import authService from './services/api/AuthService';
-import authHeader from './services/api/AuthHeader';
-
-import { useState, useEffect } from 'react' 
-import Login from './components/Login';
-import Home from './components/Home';
+import { BrowserRouter } from "react-router-dom";
+import { AuthProvider } from './components/hooks/useAuth';
+import Router from './components/Router';
+import { QueryClient, QueryClientProvider } from 'react-query';
 import Navbar from './components/Navbar';
-import {Navigate} from 'react-router-dom';
 
 function App() {
 
-  const [currentUser, setCurrentUser] = useState(authService.getCurrentUser());
-  // = authService.getCurrentUser();
-  //console.log(currentUser);
-
-  //useEffect(()=>{
-    //console.log(authService.getCurrentUser());
-    //setCurrentUser(authService.getCurrentUser());
-  //})
+  const queryClient = new QueryClient();
 
   return (
-    <div className="App">
-      <Navbar />
-      {currentUser ? (<Home></Home>) : (<Navigate replace to="/login" />)}
-    </div>
+    <QueryClientProvider client={ queryClient }>
+      <BrowserRouter>
+        <AuthProvider>
+          <Router/>
+        </AuthProvider>
+      </BrowserRouter>
+    </QueryClientProvider>
   );
 }
 
