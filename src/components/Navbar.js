@@ -1,10 +1,8 @@
-import { Link } from "react-router-dom";
-
-function Navbar(){
+function Navbar({children}){
 
     return(
         <div style={{display:"block", background: "lightgray", overflow: "hidden"}}>
-            <Link to="/register" style={{ float:"right" , marginRight:"10px"}}>Register</Link>
+            {children}
         </div>
     );
 }
