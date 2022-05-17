@@ -1,7 +1,7 @@
 import { useQuery, useMutation, useQueryClient } from 'react-query'
 import authService from '../../services/AuthService'
 import { useNavigate } from 'react-router-dom';
-import { HOME_PAGE } from '../../constants';
+import { HOME_PAGE, LOGIN_PAGE } from '../../constants';
 
 const AUTH_USER_QUERY_KEY = 'authenticated_user'
 
@@ -32,10 +32,12 @@ export const useGetAuthenticatedUserQuery = (queryOptions) =>
 
 export const useLogoutMutation = () => {
     const queryClient = useQueryClient()
+    const navigate = useNavigate()
 
     return useMutation(authService.logout, {
         onSuccess: () => {
         queryClient.setQueryData(AUTH_USER_QUERY_KEY, null)
+        navigate(LOGIN_PAGE, { replace: true })
         }
     })
 }

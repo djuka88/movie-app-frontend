@@ -19,11 +19,9 @@ function Login(){
 
     return(
         <div className="App">
-            {/* <div style={{display:"block", background: "lightgray", overflow: "hidden"}}> */}
             <Navbar>
                 <Link to="/register" style={{ float:"right" , marginRight:"10px"}}>Register</Link>
             </Navbar>
-            {/* </div> */}
             <h1>Movie-app login</h1>
             <form onSubmit={handleSubmit(login)}>
                 <input type="text" name="email" placeholder="email..."  {...register("email")}/>
