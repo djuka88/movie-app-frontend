@@ -1,7 +1,6 @@
-import { endpoints } from "../config";
 import httpService from "./HttpService";
 import jwt_decode from "jwt-decode";
-import { HTTP_METHODS, HTTP_STATUS_CODES } from "../constants";
+import { HTTP_METHODS, HTTP_STATUS_CODES, endpoints } from "../constants";
 import { getItem, setItem, removeItem } from "../utils/localStorage";
 
 class AuthService {
