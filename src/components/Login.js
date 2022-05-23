@@ -1,9 +1,7 @@
 import { useForm } from "react-hook-form";
 import useAuth from "./hooks/useAuth";
-import { Link } from "react-router-dom";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
-import Navbar from "./Navbar";
 
 function Login() {
   const schema = yup.object({
@@ -22,7 +20,7 @@ function Login() {
   });
 
   return (
-    <div className="App">
+    <div>
       <h1>Movie-app login</h1>
       <form>
         <input

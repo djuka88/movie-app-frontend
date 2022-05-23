@@ -3,4 +3,5 @@ export const endpoints = {
   LOGIN: "auth/login",
   ME: "auth/me",
   TOKEN_REFRESH: "auth/refresh",
+  MOVIES : "/movies",
 };
