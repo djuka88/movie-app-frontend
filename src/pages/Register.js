@@ -1,5 +1,5 @@
 import { useForm } from "react-hook-form";
-import useAuth from "./hooks/useAuth";
+import useAuth from "../components/hooks/useAuth";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 

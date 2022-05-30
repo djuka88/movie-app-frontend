@@ -14,9 +14,7 @@ function App() {
       <BrowserRouter>
         <AuthProvider>
           <Navbar />
-          <div className="container">
             <Router />
-          </div>
         </AuthProvider>
       </BrowserRouter>
     </QueryClientProvider>

@@ -1,5 +1,5 @@
 import { useForm } from "react-hook-form";
-import useAuth from "./hooks/useAuth";
+import useAuth from "../components/hooks/useAuth";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 
@@ -22,7 +22,7 @@ function Login() {
   return (
     <div>
       <h1>Movie-app login</h1>
-      <form>
+      <form className="form">
         <input
           type="text"
           name="email"

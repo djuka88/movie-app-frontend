@@ -1,15 +1,20 @@
-import { Route, Routes, useNavigate, Navigate } from "react-router";
-import { HOME_PAGE, LOGIN_PAGE, REGISTER_PAGE } from "../constants";
+import { Route, Routes, useNavigate } from "react-router";
+import { HOME_PAGE, LOGIN_PAGE, REGISTER_PAGE, ADD_MOVIE_PAGE, MOVIE_PAGE } from "../constants";
 import useAuth from "./hooks/useAuth";
 import React, { Suspense, useEffect } from "react";
 
-const Home = React.lazy(() => import("./Home"));
-const Login = React.lazy(() => import("./Login"));
-const Register = React.lazy(() => import("./Register"));
+
+const Home = React.lazy(() => import("../pages/Home"));
+const Login = React.lazy(() => import("../pages/Login"));
+const Register = React.lazy(() => import("../pages/Register"));
+const AddMovie = React.lazy(()=>import("../pages/AddMovie"));
+const Movie = React.lazy(()=>import("../pages/Movie"));
 
 const AuthProtection = ({ children, isOnlyForAuthUsers, isOnlyForGuests }) => {
   const navigate = useNavigate();
   const { user } = useAuth();
+
+
 
   useEffect(() => {
     if (isOnlyForAuthUsers && !user) return navigate(LOGIN_PAGE);
@@ -49,12 +54,20 @@ export const Router = () => {
         element={<ProtectedRouteWrapper component={Login} isGuest />}
       />
       <Route
+        exact path={MOVIE_PAGE}
+        element={<ProtectedRouteWrapper component={Movie} isAuthenticated />}
+      />
+      <Route
         path={HOME_PAGE}
         element={<ProtectedRouteWrapper component={Home} isAuthenticated />}
       />
       <Route
         path={REGISTER_PAGE}
         element={<ProtectedRouteWrapper component={Register} isGuest />}
+      />
+      <Route
+        path={ADD_MOVIE_PAGE}
+        element={<ProtectedRouteWrapper component={AddMovie} isAuthenticated />}
       />
     </Routes>
   );
