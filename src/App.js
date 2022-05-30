@@ -9,14 +9,18 @@ function App() {
   const queryClient = new QueryClient();
 
   return (
+    <div className="App">
     <QueryClientProvider client={queryClient}>
       <BrowserRouter>
         <AuthProvider>
           <Navbar />
-          <Router />
+          <div className="container">
+            <Router />
+          </div>
         </AuthProvider>
       </BrowserRouter>
     </QueryClientProvider>
+    </div>
   );
 }
 
