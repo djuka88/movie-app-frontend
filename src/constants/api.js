@@ -5,4 +5,5 @@ export const endpoints = {
   TOKEN_REFRESH: "auth/refresh",
   MOVIES : "/movies",
   GENRES: "/genres",
+  SINGLE_MOVIE: "movies/:id"
 };

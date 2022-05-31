@@ -7,8 +7,8 @@ const MOVIES_QUERY_KEY = "movies";
 const MOVIE_QUERY_KEY = "movie";
 const GENRES_QUERY_KEY = "genres";
 
-export const useGetAllMoviesQuery = () =>
-  useQuery(MOVIES_QUERY_KEY, movieService.getAllMovies);
+// export const useGetAllMoviesQuery = () =>
+//   useQuery(MOVIES_QUERY_KEY, movieService.getAllMovies);
 
 export const useGetMoviesQuery = (filters) => {
     return useQuery([MOVIES_QUERY_KEY,filters], () => movieService.getMovies(filters), {

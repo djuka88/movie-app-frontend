@@ -1,5 +1,5 @@
 import { useLocation, useNavigate } from "react-router";
-import { LOGIN_PAGE, REGISTER_PAGE, ADD_MOVIE_PAGE, HOME_PAGE } from "../constants";
+import { LOGIN_PAGE, REGISTER_PAGE, CREATE_MOVIE_PAGE, HOME_PAGE } from "../constants";
 import useAuth from "./hooks/useAuth";
 import NavLink from "./NavLink";
 
@@ -28,8 +28,8 @@ function Navbar() {
       {location.pathname !== REGISTER_PAGE && location.pathname !== LOGIN_PAGE && (
         <>
           <NavLink name="Logout" onClick={logout} />
-          <NavLink name="Add movie" href={ADD_MOVIE_PAGE} style={{float:"left"}}/>
-          <NavLink name="All movies" href={HOME_PAGE} style={{float:"left"}} onClick={reloadHomePage}/>
+          <NavLink name="Add movie" href={CREATE_MOVIE_PAGE} style={{float:"left"}}/>
+          <NavLink name="All movies" href={HOME_PAGE} style={{float:"left"}} /*onClick={reloadHomePage}*//>
         </>
       )}
     </div>
