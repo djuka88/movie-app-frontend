@@ -17,12 +17,6 @@ function Movie(props) {
           <h3 className="title">{props.movieData.title}</h3>
         </div>
       </Link>
-      <LikeDislike
-        likes={props.movieData.likes}
-        dislikes={props.movieData.dislikes}
-        likeActive={props.movieData.isLiked}
-        dislikeActive={props.movieData.isDisliked}
-      />
     </div>
   );
 }
