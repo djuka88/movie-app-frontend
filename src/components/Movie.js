@@ -1,9 +1,7 @@
 import { Link } from "react-router-dom";
 import { HOME_PAGE } from "../constants";
-import LikeDislike from "./LikeDislike";
 
 function Movie(props) {
-  //const
 
   return (
     <div className="card">

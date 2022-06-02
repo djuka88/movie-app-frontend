@@ -5,27 +5,6 @@ function Movie() {
   const { id } = useParams();
   const { isLoading, error, data: movie } = useGetMovieQuery(id);
 
-  const imgStyle = {
-    width: "80%",
-    height: "80%",
-    float: "left",
-    marginLeft: "10px",
-  };
-
-  const h2Style = {
-    float: "left",
-    marginLeft: "20px",
-    color: "gray",
-  };
-
-  const pStyle = {
-    float: "left",
-    marginLeft: "20px",
-    marginTop: "50px",
-    color: "black",
-    textAlign: "left",
-  };
-
   if (isLoading) {
     return (
       <div>
@@ -47,19 +26,21 @@ function Movie() {
       <h1>{movie.title}</h1>
       <div className="movieContainer">
         <div className="imageContainer">
-          <img src={movie.cover_image} alt="Avatar" style={imgStyle} />
+          <img src={movie.cover_image} alt="Avatar" />
         </div>
         <div className="infoContainer">
           {movie.genres.map((genre, index) => (
-            <h2 key={index} style={h2Style}>
+            <h2 key={index}>
               {genre.name}
             </h2>
           ))}
-          <p style={pStyle}>{movie.description}</p>
+          <p>{movie.description}</p>
         </div>
       </div>
     </>
   );
+
+  
 }
 
 export default Movie;

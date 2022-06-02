@@ -97,9 +97,29 @@ input {
   height: 648px;
 }
 
+.imageContainer img {
+  width: 80%;
+  height: 80%;
+  float: left;
+  margin-left: 10px;
+}
+
 .infoContainer{
   width: auto;
   max-width: 800px;
+}
+
+.infoContainer h2{
+  float: left;
+  margin-left: 20px;
+  color: gray;
+}
+
+.infoContainer p {
+  margin-left: 20px;
+  margin-top: 50px;
+  color: black;
+  text-align: left;
 }
 
 .genreContainer{
