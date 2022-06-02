@@ -55,6 +55,10 @@ function Movie() {
               {genre.name}
             </h2>
           ))}
+          <h4 style={{ display: 'inline-flex'}}>
+            <p style={{ marginRight:'10px' }}>Likes: {movie.likes_count}</p>
+            Dislikes: {movie.dislikes_count}
+          </h4>
           <p style={pStyle}>{movie.description}</p>
         </div>
       </div>

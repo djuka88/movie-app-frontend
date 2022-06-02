@@ -29,7 +29,7 @@ function Navbar() {
         <>
           <NavLink name="Logout" onClick={logout} />
           <NavLink name="Add movie" href={ADD_MOVIE_PAGE} style={{float:"left"}}/>
-          <NavLink name="All movies" href={HOME_PAGE} style={{float:"left"}} onClick={reloadHomePage}/>
+          <NavLink name="All movies" href={HOME_PAGE} style={{float:"left"}} />
         </>
       )}
     </div>

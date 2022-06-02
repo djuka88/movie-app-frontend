@@ -1,4 +1,4 @@
-import { useMutation, useQuery } from "react-query";
+import { useMutation, useQuery, useQueryClient } from "react-query";
 import { useNavigate } from "react-router";
 import { HOME_PAGE } from "../../constants";
 import movieService from "../../services/MovieService";
@@ -30,3 +30,12 @@ export const useGetMovieQuery = (id) =>
   useQuery(MOVIE_QUERY_KEY, () => movieService.getMovie(id), {
     retry: 0,
   });
+
+export const useMovieReactMutation = () => {
+  const queryClient = useQueryClient();
+   return useMutation(movieService.reactOnMovie,{
+     onSuccess: async () =>{
+      await queryClient.refetchQueries([MOVIES_QUERY_KEY]);
+     }
+   });
+}
