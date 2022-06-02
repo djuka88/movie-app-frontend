@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { HOME_PAGE } from "../constants";
 import LikeDislike from "./LikeDislike";
 
-function Movie({ movieData, likeClicked, dislikeClicked,likeActive,dislikeActive}) {
+function Movie({ movieData, likeClicked, dislikeClicked}) {
   return (
     <div className="card">
       <Link to={HOME_PAGE + "/" + movieData.id}>
@@ -17,11 +17,7 @@ function Movie({ movieData, likeClicked, dislikeClicked,likeActive,dislikeActive
         </div>
       </Link>
       <LikeDislike
-        movie_id = {movieData.id}
-        likes={movieData.likes_count}
-        dislikes={movieData.dislikes_count}
-        likeActive={likeActive}
-        dislikeActive={dislikeActive}
+        movieData={movieData}
         likeClicked = {likeClicked}
         dislikeClicked = {dislikeClicked}
       />

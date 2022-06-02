@@ -26,17 +26,9 @@ function Movies({ filters, changeFilters }) {
     );
   }
 
-  const handleLikeClick = (e) => {
-    const movie_id = e.target.value;
-
-    reactOnMovie({ id: movie_id, reaction: 1 });
-  };
-
-  const handleDislikeClick = (e) => {
-    const movie_id = e.target.value;
-
-    reactOnMovie({ id: movie_id, reaction: 0 });
-  };
+  const handleReaction = (reaction, movie_id) => {
+    reactOnMovie({ id: movie_id, reaction: reaction });
+  }
 
   return (
     <>
@@ -44,16 +36,13 @@ function Movies({ filters, changeFilters }) {
         <div className="container">
           <div className="characters">
             {movies.data.map((movie) => {
-              const movieReaction = movie.reactions[0] ? movie.reactions[0] : 0;
               return (
                 <Movie
                   key={movie.id}
                   movieData={movie}
                   className="box"
-                  likeClicked={handleLikeClick}
-                  dislikeClicked={handleDislikeClick}
-                  likeActive={movieReaction ? movieReaction.like || 0 : 0}
-                  dislikeActive={movieReaction ? !movieReaction.like || 0 : 0}
+                  likeClicked={()=>handleReaction(1,movie.id)}
+                  dislikeClicked={()=>handleReaction(0,movie.id)}
                 />
               );
             })}

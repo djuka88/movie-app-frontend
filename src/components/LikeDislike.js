@@ -1,12 +1,12 @@
 function LikeDislike({
-  movie_id,
-  likes,
-  dislikes,
-  likeActive,
-  dislikeActive,
+  movieData,
   likeClicked,
   dislikeClicked,
 }) {
+  const movieReaction = movieData.reactions[0] ? movieData.reactions[0] : 0;
+  const likeActive = movieReaction ? movieReaction.like || 0 : 0;
+  const dislikeActive = movieReaction ? !movieReaction.like || 0 : 0;
+
   return (
     <>
       <button
@@ -15,22 +15,20 @@ function LikeDislike({
           backgroundColor: likeActive ? "green" : "unset",
         }}
         onClick={likeClicked}
-        value={movie_id}
       >
         Like
       </button>
-      <span style={{ marginRight: "10px" }}> {likes}</span>
+      <span style={{ marginRight: "10px" }}> {movieData.likes_count}</span>
       <button
         style={{
           marginRight: "5px",
           backgroundColor: dislikeActive ? "red" : "unset",
         }}
         onClick={dislikeClicked}
-        value={movie_id}
       >
         Dislike
       </button>
-      {dislikes}
+      {movieData.dislikes_count}
     </>
   );
 }

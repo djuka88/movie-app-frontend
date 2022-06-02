@@ -38,7 +38,7 @@ class MovieService {
     return response;
   };
 
-  reactOnMovie = async (data) => {
+  reactToMovie = async (data) => {
     const response = await httpService.request({
       url: endpoints.REACTION,
       method: HTTP_METHODS.POST,

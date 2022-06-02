@@ -33,7 +33,7 @@ export const useGetMovieQuery = (id) =>
 
 export const useMovieReactMutation = () => {
   const queryClient = useQueryClient();
-   return useMutation(movieService.reactOnMovie,{
+   return useMutation(movieService.reactToMovie,{
      onSuccess: async () =>{
       await queryClient.refetchQueries([MOVIES_QUERY_KEY]);
      }
