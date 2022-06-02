@@ -1,17 +1,27 @@
-import { useLocation, useNavigate } from "react-router";
-import { LOGIN_PAGE, REGISTER_PAGE, CREATE_MOVIE_PAGE, HOME_PAGE } from "../constants";
+import { useContext } from "react";
+import { useLocation } from "react-router";
+import { FilterContext } from "../App";
+import {
+  LOGIN_PAGE,
+  REGISTER_PAGE,
+  CREATE_MOVIE_PAGE,
+  HOME_PAGE,
+} from "../constants";
 import useAuth from "./hooks/useAuth";
 import NavLink from "./NavLink";
 
 function Navbar() {
   const location = useLocation();
-  const navigate = useNavigate();
   const { logout } = useAuth();
 
-  function reloadHomePage(){
-    navigate(HOME_PAGE);
-    window.location.reload(true);
-  }
+  const [, setFilters, , setSearchField, , setGenresCheckboxes] =
+    useContext(FilterContext);
+
+  const handleHomePage = () => {
+    setFilters({});
+    setSearchField("");
+    setGenresCheckboxes([]);
+  };
 
   return (
     <div
@@ -28,8 +38,17 @@ function Navbar() {
       {location.pathname !== REGISTER_PAGE && location.pathname !== LOGIN_PAGE && (
         <>
           <NavLink name="Logout" onClick={logout} />
-          <NavLink name="Add movie" href={CREATE_MOVIE_PAGE} style={{float:"left"}}/>
-          <NavLink name="All movies" href={HOME_PAGE} style={{float:"left"}} onClick={reloadHomePage}/>
+          <NavLink
+            name="Add movie"
+            href={CREATE_MOVIE_PAGE}
+            style={{ float: "left" }}
+          />
+          <NavLink
+            name="All movies"
+            href={HOME_PAGE}
+            style={{ float: "left" }}
+            onClick={handleHomePage}
+          />
         </>
       )}
     </div>

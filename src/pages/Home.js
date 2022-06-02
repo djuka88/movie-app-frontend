@@ -1,12 +1,22 @@
-import { useCallback, useState } from "react";
+import { useCallback, useContext, useEffect, useRef } from "react";
 import useAuth from "../components/hooks/useAuth";
 import Movies from "../components/Movies";
 import debounce from "lodash.debounce";
 import { useGetAllGenresQuery } from "../components/queries/movie";
+import { FilterContext } from "../App";
 
 function Home() {
   const { user } = useAuth();
-  const [filters, setFilters] = useState({});
+
+  const [
+    filters,
+    setFilters,
+    searchField,
+    setSearchField,
+    genresCheckboxes,
+    setGenresCheckboxes,
+  ] = useContext(FilterContext);
+
   const { isLoading, error, data: genres } = useGetAllGenresQuery();
 
   const handleSearch = (event) => {
@@ -17,7 +27,10 @@ function Home() {
     }));
   };
 
-  const debouncedChangeHandler = useCallback(debounce(handleSearch, 750), []);
+  const debouncedChangeHandler = (e) => {
+    setSearchField(e.target.value);
+    debounce(handleSearch, 750)(e);
+  };
 
   const handleGenreFilter = (event) => {
     const selectedGenreId = event.target.value;
@@ -28,6 +41,8 @@ function Home() {
     } else {
       genreFilter = [...genreFilter, selectedGenreId];
     }
+
+    setGenresCheckboxes(genreFilter);
 
     setFilters((prevFilters) => ({
       ...prevFilters,
@@ -63,6 +78,7 @@ function Home() {
               type="text"
               onChange={debouncedChangeHandler}
               style={{ width: "400px" }}
+              value={searchField}
             ></input>
           </div>
           <div className="main-container">
@@ -76,7 +92,8 @@ function Home() {
                       type="checkbox"
                       value={c.id}
                       name="genre_ids"
-                      onClick={handleGenreFilter}
+                      checked={genresCheckboxes.includes(c.id.toString())}
+                      onChange={handleGenreFilter}
                     />
                     {c.name}
                   </label>
