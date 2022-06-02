@@ -24,7 +24,6 @@ function Movie() {
   };
 
   const pStyle = {
-    float: "left",
     marginLeft: "20px",
     marginTop: "50px",
     color: "black",
@@ -57,6 +56,8 @@ function Movie() {
               <img src={movie.cover_image} alt="Avatar" style={imgStyle} />
             </div>
             <div className="infoContainer">
+              <div className="details">
+                <div>
               {movie.genres.map((genre, index) => (
                 <h2 key={index} style={h2Style}>
                   {genre.name}
@@ -69,7 +70,14 @@ function Movie() {
                 <p style={{ marginRight: "20px", color:"red" }}>Dislikes: {movie.dislikes_count}</p>
                 Total visits: {movie.times_visited}
               </div>
+              </div>
               <p style={pStyle}>{movie.description}</p>
+              </div>
+              <div className="comments">
+                <textarea>
+
+                </textarea>
+              </div>
             </div>
           </div>
         </>

@@ -74,13 +74,6 @@ h1 {
   font-size: 7.5rem;
 }
 
-/* button {
-  padding: 1rem 4rem;
-  font-size: 1rem;
-  margin: 1rem 0;
-  margin-right: 1rem;
-} */
-
 input {
   padding: 3px; 
   margin: 10px;
@@ -197,4 +190,16 @@ fieldset {
   display: grid;
   border: transparent;
   margin-top: 10px;
+}
+
+.comments {
+  text-align: left;
+  margin-top: 20px;
+  padding-left: 20px;
+  background-color: lightgray;
+  height: 100%;
+}
+
+.details {
+  height: auto;
 }
