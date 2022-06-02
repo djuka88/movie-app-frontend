@@ -29,6 +29,7 @@ export const useGetAllGenresQuery = () =>
 export const useGetMovieQuery = (id) =>
   useQuery(MOVIE_QUERY_KEY, () => movieService.getMovie(id), {
     retry: 0,
+    enabled:false
   });
 
 export const useMovieReactMutation = () => {

@@ -6,6 +6,7 @@ import LikeDislike from "./LikeDislike";
 function Movie({ movieData, likeClicked, dislikeClicked,likeActive,dislikeActive}) {
   return (
     <div className="card">
+      <p>visits: {movieData.times_visited}</p>
       <Link to={HOME_PAGE + "/" + movieData.id}>
         <img
           src={movieData.cover_image}
