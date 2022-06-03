@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import { useParams } from "react-router";
-import { useGetMovieQuery } from "../components/queries/movie";
+import { useCommentOnMovieMutation, useGetMovieQuery } from "../components/queries/movie";
 import useAuth from "../components/hooks/useAuth";
 import { useForm } from "react-hook-form";
 import * as yup from "yup";
@@ -10,9 +10,10 @@ function Movie() {
   const { id } = useParams();
   const { user } = useAuth();
   const { isLoading, error, data: movie, refetch } = useGetMovieQuery(id);
+  const { mutate: commentOnMovie, error: commentOnMovieError } = useCommentOnMovieMutation();
 
   const schema = yup.object({
-    text: yup.string().required().max(500).min(1),
+    text: yup.string().required().max(10),
   });
 
   const {
@@ -96,13 +97,16 @@ function Movie() {
               <div className="comments">
                 <p>{user.name}</p>
                 <form>
+                  <input type="hidden" value={movie.id} name="movie_id" {...register("movie_id")}/>
+                  <input type="hidden" value={user.id} name="user_id" {...register("user_id")}/>
                   <textarea
                     placeholder="Post comment..."
                     rows={10}
                     name="text"
                     {...register("text")}
                   ></textarea>
-                  <button type="submit" onClick={handleSubmit} style={{ marginLeft : "10px" }}>Post comment</button>
+                  <p style={{ color:"red"}}>{errors.text?.message}</p>
+                  <button type="submit" onClick={handleSubmit(commentOnMovie)} style={{ marginLeft : "10px" }}>Post comment</button>
                 </form>
                 {movie.comments.map((comment,index)=>(
                   <p key={index}>{comment.text}</p>

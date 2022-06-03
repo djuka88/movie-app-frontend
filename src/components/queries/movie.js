@@ -40,3 +40,7 @@ export const useMovieReactMutation = () => {
      }
    });
 }
+
+export const useCommentOnMovieMutation = () => {
+  return useMutation(movieService.commentOnMovie); 
+}

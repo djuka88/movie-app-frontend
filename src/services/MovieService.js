@@ -47,6 +47,14 @@ class MovieService {
 
     return response;
   }
+
+  commentOnMovie = async (data) => {
+    const response = await httpService.request({
+      url: endpoints.COMMENT,
+      method: HTTP_METHODS.POST,
+      data: data
+    })
+  }
 }
 
 const movieService = new MovieService();
