@@ -3,9 +3,9 @@ function LikeDislike({
   likeClicked,
   dislikeClicked,
 }) {
-  const movieReaction = movieData.reactions[0] ? movieData.reactions[0] : 0;
-  const likeActive = movieReaction ? movieReaction.like || 0 : 0;
-  const dislikeActive = movieReaction ? !movieReaction.like || 0 : 0;
+  
+  const likeActive = movieData.reaction!=undefined ? movieData.reaction : 0;
+  const dislikeActive = movieData.reaction!=undefined ? !movieData.reaction : 0;
 
   return (
     <>
