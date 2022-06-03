@@ -200,6 +200,13 @@ fieldset {
   height: 100%;
 }
 
+.comments textarea {
+  margin-top: 10px;
+  margin-left: 10px;
+  width: 90%;
+  max-width: 90%; 
+}
+
 .details {
   height: auto;
 }
