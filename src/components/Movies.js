@@ -4,7 +4,7 @@ import Pagination from "./Pagination";
 
 function Movies({ filters, changeFilters }) {
   const { isLoading, error, data: movies } = useGetMoviesQuery(filters);
-  const { mutate: reactOnMovie } = useMovieReactMutation();
+  const { mutate: reactToMovie } = useMovieReactMutation();
 
   const handlePageChange = (page) => {
     changeFilters({ ...filters, page: page });
@@ -26,9 +26,9 @@ function Movies({ filters, changeFilters }) {
     );
   }
 
-  const handleReaction = (reaction, movie_id) => {
-    reactOnMovie({ id: movie_id, reaction: reaction });
-  }
+  const handleReaction = (event, movieId) => {
+    reactToMovie({ id: movieId, reaction: event.target.value });
+  };
 
   return (
     <>
@@ -41,8 +41,7 @@ function Movies({ filters, changeFilters }) {
                   key={movie.id}
                   movieData={movie}
                   className="box"
-                  likeClicked={()=>handleReaction(1,movie.id)}
-                  dislikeClicked={()=>handleReaction(0,movie.id)}
+                  reactionClicked={(e) => handleReaction(e, movie.id)}
                 />
               );
             })}

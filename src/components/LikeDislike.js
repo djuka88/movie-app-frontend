@@ -1,11 +1,7 @@
-function LikeDislike({
-  movieData,
-  likeClicked,
-  dislikeClicked,
-}) {
-  
-  const likeActive = movieData.reaction!=undefined ? movieData.reaction : 0;
-  const dislikeActive = movieData.reaction!=undefined ? !movieData.reaction : 0;
+function LikeDislike({ movieData, reactionClicked }) {
+  const likeActive = movieData.reaction != undefined ? movieData.reaction : 0;
+  const dislikeActive =
+    movieData.reaction != undefined ? !movieData.reaction : 0;
 
   return (
     <>
@@ -14,7 +10,8 @@ function LikeDislike({
           marginRight: "5px",
           backgroundColor: likeActive ? "green" : "unset",
         }}
-        onClick={likeClicked}
+        value={1}
+        onClick={reactionClicked}
       >
         Like
       </button>
@@ -24,7 +21,8 @@ function LikeDislike({
           marginRight: "5px",
           backgroundColor: dislikeActive ? "red" : "unset",
         }}
-        onClick={dislikeClicked}
+        value={0}
+        onClick={reactionClicked}
       >
         Dislike
       </button>
