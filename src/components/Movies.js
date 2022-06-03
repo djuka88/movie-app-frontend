@@ -1,8 +1,13 @@
-import { useGetAllMoviesQuery } from "./queries/movie";
+import { useGetMoviesQuery } from "./queries/movie";
 import Movie from "../components/Movie";
+import Pagination from "./Pagination";
 
-function Movies() {
-  const { isLoading, error, data } = useGetAllMoviesQuery();
+function Movies({ filters, changeFilters }) {
+  const { isLoading, error, data: movies } = useGetMoviesQuery(filters);
+
+  const handlePageChange = (page) => {
+    changeFilters({ ...filters, page: page });
+  };
 
   if (isLoading) {
     return (
@@ -21,11 +26,22 @@ function Movies() {
   }
 
   return (
-    <div className="characters">
-      {data.map((movie) => {
-        return <Movie key={movie.id} movieData={movie} className="box"/>;
-      })}
-    </div>
+    <>
+      <div className="container">
+        <div className="characters">
+          {movies.data.map((movie) => {
+            return <Movie key={movie.id} movieData={movie} className="box" />;
+          })}
+        </div>
+        <Pagination
+          className="pagination-bar"
+          currentPage={movies.current_page}
+          totalCount={movies.total}
+          pageSize={movies.per_page}
+          onPageChange={(page) => handlePageChange(page)}
+        />
+      </div>
+    </>
   );
 }
 
