@@ -192,7 +192,7 @@ fieldset {
   margin-top: 10px;
 }
 
-.comments {
+.comments-container {
   text-align: left;
   margin-top: 20px;
   padding-left: 20px;
@@ -200,11 +200,21 @@ fieldset {
   height: 100%;
 }
 
-.comments textarea {
+.comments-form textarea {
   margin-top: 10px;
   margin-left: 10px;
   width: 90%;
   max-width: 90%; 
+}
+
+.comments p {
+  border-radius: 25px;
+  border: 2px solid #73AD21;
+  padding: 20px; 
+  width: 200px;
+  height: auto;  
+  margin-top: 10px;
+  margin-bottom: 10px;
 }
 
 .details {

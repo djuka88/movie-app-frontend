@@ -1,6 +1,10 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useParams } from "react-router";
-import { useCommentOnMovieMutation, useGetMovieQuery } from "../components/queries/movie";
+import {
+  useCommentToMovieMutation,
+  useGetCommentsQuery,
+  useGetMovieQuery,
+} from "../components/queries/movie";
 import useAuth from "../components/hooks/useAuth";
 import { useForm } from "react-hook-form";
 import * as yup from "yup";
@@ -9,11 +13,19 @@ import { yupResolver } from "@hookform/resolvers/yup";
 function Movie() {
   const { id } = useParams();
   const { user } = useAuth();
+  const [commentsPageCounter, setCommentsPageCounter] = useState(1);
   const { isLoading, error, data: movie, refetch } = useGetMovieQuery(id);
-  const { mutate: commentOnMovie, error: commentOnMovieError } = useCommentOnMovieMutation();
+  const {
+    isLoading: isCommentsLoading,
+    error: commentsLoadingError,
+    data: comments,
+  } = useGetCommentsQuery(commentsPageCounter,id);
+
+  const { mutate: commentToMovie, error: commentToMovieError } =
+    useCommentToMovieMutation();
 
   const schema = yup.object({
-    text: yup.string().required().max(10),
+    text: yup.string().required().max(500),
   });
 
   const {
@@ -24,10 +36,14 @@ function Movie() {
   } = useForm({
     resolver: yupResolver(schema),
   });
-  
+
   useEffect(() => {
     refetch();
   }, []);
+
+  const handleShowMoreComments = () => {
+    setCommentsPageCounter((prev)=> (prev+1));
+  }
 
   const imgStyle = {
     width: "80%",
@@ -94,23 +110,47 @@ function Movie() {
                 </div>
                 <p style={pStyle}>{movie.description}</p>
               </div>
-              <div className="comments">
-                <p>{user.name}</p>
-                <form>
-                  <input type="hidden" value={movie.id} name="movie_id" {...register("movie_id")}/>
-                  <input type="hidden" value={user.id} name="user_id" {...register("user_id")}/>
-                  <textarea
-                    placeholder="Post comment..."
-                    rows={10}
-                    name="text"
-                    {...register("text")}
-                  ></textarea>
-                  <p style={{ color:"red"}}>{errors.text?.message}</p>
-                  <button type="submit" onClick={handleSubmit(commentOnMovie)} style={{ marginLeft : "10px" }}>Post comment</button>
-                </form>
-                {movie.comments.map((comment,index)=>(
-                  <p key={index}>{comment.text}</p>
-                ))}
+              <div className="comments-container">
+                <div className="comments-form">
+                  <p>{user.name}</p>
+                  <form>
+                    <input
+                      type="hidden"
+                      value={movie.id}
+                      name="movieId"
+                      {...register("movieId")}
+                    />
+                    <input
+                      type="hidden"
+                      value={user.id}
+                      name="userId"
+                      {...register("userId")}
+                    />
+                    <textarea
+                      placeholder="Post comment..."
+                      rows={10}
+                      name="text"
+                      {...register("text")}
+                    ></textarea>
+                    <p style={{ color: "red" }}>{errors.text?.message}</p>
+                    <button
+                      type="submit"
+                      onClick={handleSubmit(commentToMovie)}
+                      style={{ marginLeft: "10px" }}
+                    >
+                      Post comment
+                    </button>
+                  </form>
+                </div>
+                {isCommentsLoading ? <h3>Loading comments...</h3> : 
+                  <div className="comments">
+                    {comments.map((comment, index) => (
+                      <p key={index}>{comment.text}</p>
+                    ))}
+                    <button onClick={handleShowMoreComments}>Show more comments</button>
+                  </div>
+                }
+                {commentsLoadingError && <h3>Error loading comments...</h3>}
               </div>
             </div>
           </div>

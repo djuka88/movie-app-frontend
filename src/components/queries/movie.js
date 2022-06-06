@@ -6,14 +6,20 @@ import movieService from "../../services/MovieService";
 const MOVIES_QUERY_KEY = "movies";
 const MOVIE_QUERY_KEY = "movie";
 const GENRES_QUERY_KEY = "genres";
+const COMMENTS_QUERY_KEY = "comments";
 
 export const useGetAllMoviesQuery = () =>
   useQuery(MOVIES_QUERY_KEY, movieService.getAllMovies);
 
 export const useGetMoviesQuery = (filters) => {
-    return useQuery([MOVIES_QUERY_KEY,filters], () => movieService.getMovies(filters), {
-    retry: 0,
-  })};
+  return useQuery(
+    [MOVIES_QUERY_KEY, filters],
+    () => movieService.getMovies(filters),
+    {
+      retry: 0,
+    }
+  );
+};
 
 export const useAddMovieMutation = () => {
   const navigate = useNavigate();
@@ -29,18 +35,27 @@ export const useGetAllGenresQuery = () =>
 export const useGetMovieQuery = (id) =>
   useQuery(MOVIE_QUERY_KEY, () => movieService.getMovie(id), {
     retry: 0,
-    enabled:false
+    enabled: false,
   });
 
 export const useMovieReactMutation = () => {
   const queryClient = useQueryClient();
-   return useMutation(movieService.reactOnMovie,{
-     onSuccess: async () =>{
+  return useMutation(movieService.reactOnMovie, {
+    onSuccess: async () => {
       await queryClient.refetchQueries([MOVIES_QUERY_KEY]);
-     }
-   });
-}
+    },
+  });
+};
 
-export const useCommentOnMovieMutation = () => {
-  return useMutation(movieService.commentOnMovie); 
-}
+export const useCommentToMovieMutation = () => {
+  const queryCLient = useQueryClient();
+  return useMutation(movieService.commentToMovie, {
+    onSuccess: async () => {
+      await queryCLient.refetchQueries([COMMENTS_QUERY_KEY]);
+    },
+  });
+};
+
+export const useGetCommentsQuery = (commentsPage, movieId) => {
+  return useQuery([COMMENTS_QUERY_KEY,commentsPage], () => movieService.getComments(commentsPage,movieId));
+};

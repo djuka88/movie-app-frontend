@@ -31,7 +31,7 @@ class MovieService {
 
   getMovie = async (id) => {
     const response = await httpService.request({
-      url: endpoints.SINGLE_MOVIE.replace(':id',id),
+      url: endpoints.SINGLE_MOVIE.replace(":id", id),
       method: HTTP_METHODS.GET,
     });
 
@@ -42,19 +42,31 @@ class MovieService {
     const response = await httpService.request({
       url: endpoints.REACTION,
       method: HTTP_METHODS.POST,
-      data: data
-    })
+      data: data,
+    });
 
     return response;
-  }
+  };
 
-  commentOnMovie = async (data) => {
+  commentToMovie = async (data) => {
     const response = await httpService.request({
-      url: endpoints.COMMENT,
+      url: endpoints.COMMENTS.replace(":id", data.movieId),
       method: HTTP_METHODS.POST,
-      data: data
-    })
-  }
+      data: data,
+    });
+
+    return response;
+  };
+
+  getComments = async (commentsPage, movieId) => {
+    const response = await httpService.request({
+      url: endpoints.COMMENTS.replace(":id", movieId),
+      method: HTTP_METHODS.GET,
+      params: { page: commentsPage, movieId: movieId },
+    });
+
+    return response;
+  };
 }
 
 const movieService = new MovieService();

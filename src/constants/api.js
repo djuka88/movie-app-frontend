@@ -7,5 +7,5 @@ export const endpoints = {
   GENRES: "/genres",
   REACTION: "/movies/react",
   SINGLE_MOVIE: "/movies/:id",
-  COMMENT: "/movies/comment",
+  COMMENTS: "/movies/:id/comments",
 };
