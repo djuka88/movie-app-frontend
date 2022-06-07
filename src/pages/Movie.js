@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router";
 import {
-  useAddToWatchListMutation,
   useCommentToMovieMutation,
   useGetCommentsQuery,
   useGetMovieQuery,
@@ -10,7 +9,6 @@ import useAuth from "../components/hooks/useAuth";
 import { useForm } from "react-hook-form";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { MOVIE_PAGE } from "../constants";
 
 function Movie() {
   const { id } = useParams();

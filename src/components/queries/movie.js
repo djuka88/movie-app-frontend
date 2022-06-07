@@ -8,6 +8,7 @@ const MOVIE_QUERY_KEY = "movie";
 const GENRES_QUERY_KEY = "genres";
 const COMMENTS_QUERY_KEY = "comments";
 const WATCHLIST_QUERY_KEY = "watchlist";
+const POPULAR_MOVIES = "popular"
 
 export const useGetAllMoviesQuery = () =>
   useQuery(MOVIES_QUERY_KEY, movieService.getAllMovies);
@@ -98,5 +99,11 @@ export const useAddToWatchListMutation = () => {
     onSuccess: async () => {
       await queryClient.refetchQueries([MOVIES_QUERY_KEY]);
     },
+  });
+};
+
+export const useGetMostPopularMovies = () => {
+  return useQuery(POPULAR_MOVIES, () => movieService.getMostPopularMovies(), {
+    refetchOnMount: "true",
   });
 };

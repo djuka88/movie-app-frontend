@@ -105,6 +105,15 @@ class MovieService {
 
     return response;
   }
+
+  getMostPopularMovies = async () => {
+    const response = await httpService.request({
+      url: endpoints.POPULAR,
+      method: HTTP_METHODS.GET,
+    });
+
+    return response;
+  }
 }
 
 const movieService = new MovieService();

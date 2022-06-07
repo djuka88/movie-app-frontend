@@ -2,12 +2,22 @@ import { useCallback, useState } from "react";
 import useAuth from "../components/hooks/useAuth";
 import Movies from "../components/Movies";
 import debounce from "lodash.debounce";
-import { useGetAllGenresQuery } from "../components/queries/movie";
+import { Link } from "react-router-dom";
+import { HOME_PAGE } from "../constants";
+import {
+  useGetAllGenresQuery,
+  useGetMostPopularMovies,
+} from "../components/queries/movie";
 
 function Home() {
   const { user } = useAuth();
   const [filters, setFilters] = useState({});
   const { isLoading, error, data: genres } = useGetAllGenresQuery();
+  const {
+    isLoading: isLoadingMostPopularMovies,
+    error: errorLoadingMostPopularMovies,
+    data: mostPopularMovies,
+  } = useGetMostPopularMovies();
 
   const handleSearch = (event) => {
     setFilters((prevFilters) => ({
@@ -84,6 +94,24 @@ function Home() {
               </fieldset>
             </div>
             <Movies filters={filters} changeFilters={setFilters} />
+            <div className="sidebar-container">
+              {isLoadingMostPopularMovies ? (
+                <h3 style={{ textAlign: "center" }}>
+                  Loading popular movies...
+                </h3>
+              ) : (
+                <>
+                  <h3 style={{ textAlign: "center" }}>Most popular movies</h3>
+                  {mostPopularMovies.map((movie, index) => (
+                    <p style={{ marginTop: "10px" }}>
+                      <Link key={index} to={HOME_PAGE + "/" + movie.id}>
+                        {movie.title}
+                      </Link>
+                    </p>
+                  ))}
+                </>
+              )}
+            </div>
           </div>
         </>
       )}

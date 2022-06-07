@@ -9,5 +9,6 @@ export const endpoints = {
   SINGLE_MOVIE: "/movies/:id",
   COMMENTS: "/movies/:id/comments",
   WATCHLIST: "/watchlist",
-  SINGLE_WATCHLIST: "/watchlist/:id"
+  SINGLE_WATCHLIST: "/watchlist/:id",
+  POPULAR: "/movies/popular",
 };
