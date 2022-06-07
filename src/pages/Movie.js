@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router";
 import {
+  useAddToWatchListMutation,
   useCommentToMovieMutation,
   useGetCommentsQuery,
   useGetMovieQuery,
@@ -9,6 +10,7 @@ import useAuth from "../components/hooks/useAuth";
 import { useForm } from "react-hook-form";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
+import { MOVIE_PAGE } from "../constants";
 
 function Movie() {
   const { id } = useParams();
@@ -19,7 +21,7 @@ function Movie() {
     isLoading: isCommentsLoading,
     error: commentsLoadingError,
     data: comments,
-  } = useGetCommentsQuery(commentsPageCounter,id);
+  } = useGetCommentsQuery(commentsPageCounter, id);
 
   const { mutate: commentToMovie, error: commentToMovieError } =
     useCommentToMovieMutation();
@@ -42,8 +44,8 @@ function Movie() {
   }, []);
 
   const handleShowMoreComments = () => {
-    setCommentsPageCounter((prev)=> (prev+1));
-  }
+    setCommentsPageCounter((prev) => prev + 1);
+  };
 
   const imgStyle = {
     width: "80%",
@@ -88,6 +90,9 @@ function Movie() {
           <h1>{movie.title}</h1>
           <div className="movieContainer">
             <div className="imageContainer">
+              <h3 style={{ color: "green" }}>
+                {(movie.isInWatchList && movie.watched) ? <div>You've watched this!</div> : <></>}
+              </h3>
               <img src={movie.cover_image} alt="Avatar" style={imgStyle} />
             </div>
             <div className="infoContainer">
@@ -142,14 +147,18 @@ function Movie() {
                     </button>
                   </form>
                 </div>
-                {isCommentsLoading ? <h3>Loading comments...</h3> : 
+                {isCommentsLoading ? (
+                  <h3>Loading comments...</h3>
+                ) : (
                   <div className="comments">
                     {comments.map((comment, index) => (
                       <p key={index}>{comment.text}</p>
                     ))}
-                    <button onClick={handleShowMoreComments}>Show more comments</button>
+                    <button onClick={handleShowMoreComments}>
+                      Show more comments
+                    </button>
                   </div>
-                }
+                )}
                 {commentsLoadingError && <h3>Error loading comments...</h3>}
               </div>
             </div>

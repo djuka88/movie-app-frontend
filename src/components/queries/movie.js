@@ -7,6 +7,7 @@ const MOVIES_QUERY_KEY = "movies";
 const MOVIE_QUERY_KEY = "movie";
 const GENRES_QUERY_KEY = "genres";
 const COMMENTS_QUERY_KEY = "comments";
+const WATCHLIST_QUERY_KEY = "watchlist";
 
 export const useGetAllMoviesQuery = () =>
   useQuery(MOVIES_QUERY_KEY, movieService.getAllMovies);
@@ -57,5 +58,45 @@ export const useCommentToMovieMutation = () => {
 };
 
 export const useGetCommentsQuery = (commentsPage, movieId) => {
-  return useQuery([COMMENTS_QUERY_KEY,commentsPage], () => movieService.getComments(commentsPage,movieId));
+  return useQuery([COMMENTS_QUERY_KEY, commentsPage], () =>
+    movieService.getComments(commentsPage, movieId)
+  );
+};
+
+export const useGetWatchListQuery = () => {
+  return useQuery(WATCHLIST_QUERY_KEY, () => movieService.getWatchList(), {
+    refetchOnMount: "true",
+  });
+};
+
+export const useWatchedMutation = () => {
+  const queryClient = useQueryClient();
+  const navigate = useNavigate();
+
+  return useMutation(movieService.updateWatchList, {
+    onSuccess: async () => {
+      await queryClient.refetchQueries([WATCHLIST_QUERY_KEY]);
+      navigate(HOME_PAGE);
+    },
+  });
+};
+
+export const useRemoveFromWatchListMutation = () => {
+  const queryClient = useQueryClient();
+
+  return useMutation(movieService.removeFromWatchList, {
+    onSuccess: async () => {
+      await queryClient.refetchQueries([WATCHLIST_QUERY_KEY]);
+    },
+  });
+};
+
+export const useAddToWatchListMutation = () => {
+  const queryClient = useQueryClient();
+
+  return useMutation(movieService.addToWatchList, {
+    onSuccess: async () => {
+      await queryClient.refetchQueries([MOVIES_QUERY_KEY]);
+    },
+  });
 };

@@ -20,6 +20,8 @@
   display: table;
   height: auto;
   float: left;
+  border: #73AD21;
+  margin-top: 30px;
 }
 
 .card img {
@@ -219,4 +221,10 @@ fieldset {
 
 .details {
   height: auto;
+}
+
+.watchlist tr {
+  border-bottom: 1px solid black;
+  border-top: 1px solid black;
+  border-collapse: collapse;
 }

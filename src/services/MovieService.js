@@ -67,6 +67,44 @@ class MovieService {
 
     return response;
   };
+
+  getWatchList = async () => {
+    const response = await httpService.request({
+      url: endpoints.WATCHLIST,
+      method: HTTP_METHODS.GET,
+    });
+
+    return response;
+  };
+
+  updateWatchList = async (data) => {
+    const response = await httpService.request({
+      url: endpoints.WATCHLIST,
+      method: HTTP_METHODS.PUT,
+      data: { movieIds: data },
+    });
+
+    return response;
+  };
+
+  removeFromWatchList = async (movieId) => {
+    const response = await httpService.request({
+      url: endpoints.SINGLE_WATCHLIST.replace(":id",movieId),
+      method: HTTP_METHODS.DELETE
+    });
+
+    return response;
+  }
+
+  addToWatchList = async (movieId) => {
+    const response = await httpService.request({
+      url: endpoints.WATCHLIST,
+      method: HTTP_METHODS.POST,
+      data: {movieId:movieId}
+    });
+
+    return response;
+  }
 }
 
 const movieService = new MovieService();

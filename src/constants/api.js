@@ -8,4 +8,6 @@ export const endpoints = {
   REACTION: "/movies/react",
   SINGLE_MOVIE: "/movies/:id",
   COMMENTS: "/movies/:id/comments",
+  WATCHLIST: "/watchlist",
+  SINGLE_WATCHLIST: "/watchlist/:id"
 };

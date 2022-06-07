@@ -1,5 +1,5 @@
 import { useLocation, useNavigate } from "react-router";
-import { LOGIN_PAGE, REGISTER_PAGE, ADD_MOVIE_PAGE, HOME_PAGE } from "../constants";
+import { LOGIN_PAGE, REGISTER_PAGE, ADD_MOVIE_PAGE, HOME_PAGE, WATCH_LIST_PAGE } from "../constants";
 import useAuth from "./hooks/useAuth";
 import NavLink from "./NavLink";
 
@@ -30,6 +30,7 @@ function Navbar() {
           <NavLink name="Logout" onClick={logout} />
           <NavLink name="Add movie" href={ADD_MOVIE_PAGE} style={{float:"left"}}/>
           <NavLink name="All movies" href={HOME_PAGE} style={{float:"left"}} />
+          <NavLink name="Watch list" href={WATCH_LIST_PAGE} style={{float:"left"}} />
         </>
       )}
     </div>
